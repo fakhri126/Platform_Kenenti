@@ -110,12 +110,12 @@ export const HERO_BEFORE_AFTER_PAIRS: BeforeAfterPair[] = [
   {
     id: "entretien-renovation",
     title: "Rénovation",
-    beforeImage: "/images/avant-apres/hero-studio-before.jpg",
+    beforeImage: "/images/avant-apres/renovation-before.jpg",
     beforeAlt:
-      "Avant rénovation : Sneaker ternie et soulier en cuir cognac desséché et griffé",
-    afterImage: "/images/avant-apres/hero-studio-after.jpg",
+      "Avant rénovation : Mocassin en cuir cognac desséché, plissé et griffé avant intervention KENENTI",
+    afterImage: "/images/avant-apres/renovation-after.jpg",
     afterAlt:
-      "Après rénovation : Sneaker éclatante et soulier en cuir cognac nourri et patiné en atelier",
+      "Après rénovation : Le même mocassin en cuir cognac nourri, repigmenté et patiné en atelier KENENTI",
   },
 ];
 

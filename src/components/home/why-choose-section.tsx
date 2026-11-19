@@ -23,10 +23,10 @@ const WHY_CHOOSE_KENENTI = [
     icon: MapPin,
   },
   {
-    id: "gamme-pro",
-    statValue: "67 Produits Pro",
-    statTitle: "Peintures, kits & soins",
-    description: "Gamme complète formulée pour l'entretien durable.",
+    id: "paires-renovees",
+    statValue: "+1 500 Paires",
+    statTitle: "rénovées en atelier",
+    description: "Chaussures, sneakers et cuirs restaurés avec soin.",
     icon: Award,
   },
 ];
