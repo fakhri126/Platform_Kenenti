@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+<<<<<<< HEAD
 import {
   HelpCircle,
   ChevronsUpDown,
@@ -17,6 +18,9 @@ import {
   CheckCircle2,
   ArrowUpRight,
 } from "lucide-react";
+=======
+import { ChevronsUpDown, MessageCircle } from "lucide-react";
+>>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
 import { FAQ_ITEMS, KENENTI_BRAND } from "@/lib/kenenti-data";
 import { cn } from "@/lib/utils";
 
@@ -92,6 +96,7 @@ const FAQ_ENRICHED_META: Record<
 };
 
 export function FaqSection() {
+<<<<<<< HEAD
   const [openIds, setOpenIds] = React.useState<string[]>([FAQ_ITEMS[0]?.id ?? "faq-devis"]);
   const [selectedFilter, setSelectedFilter] = React.useState<string>("all");
 
@@ -110,6 +115,17 @@ export function FaqSection() {
       setOpenIds(FAQ_ITEMS.map((item) => item.id));
     }
     setSelectedFilter("all");
+=======
+  const listRef = React.useRef<HTMLDivElement>(null);
+  const [allExpanded, setAllExpanded] = React.useState(false);
+
+  const handleToggleAll = () => {
+    const nextState = !allExpanded;
+    listRef.current?.querySelectorAll("details").forEach((el) => {
+      el.open = nextState;
+    });
+    setAllExpanded(nextState);
+>>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
   };
 
   const handleSelectChip = (id: string) => {
@@ -130,6 +146,7 @@ export function FaqSection() {
     <section
       id="faq"
       aria-labelledby="faq-heading"
+<<<<<<< HEAD
       className="relative overflow-hidden bg-gradient-to-b from-white via-[#FAF8F5] to-[#F3EFE8] py-7 sm:py-14 lg:py-20"
     >
       {/* Décor lumineux subtil */}
@@ -150,6 +167,17 @@ export function FaqSection() {
               <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
               <span>Centre d&apos;Aide &amp; Réponses</span>
             </div>
+=======
+      className="kenenti-accordion bg-white py-6 sm:py-12 lg:py-16"
+    >
+      <div className="container max-w-4xl">
+        {/* En-tête Mobile-First */}
+        <div className="flex items-end justify-between gap-3 mb-4 sm:mb-7">
+          <div>
+            <p className="text-[10px] sm:text-xs font-heading font-bold uppercase tracking-widest text-[#D98A1C] mb-0.5">
+              FAQ
+            </p>
+>>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
             <h2
               id="faq-heading"
               className="text-lg sm:text-2xl lg:text-3xl font-heading font-extrabold text-kenenti-navy tracking-tight"
@@ -162,13 +190,18 @@ export function FaqSection() {
             type="button"
             aria-expanded={allExpanded}
             onClick={handleToggleAll}
+<<<<<<< HEAD
             className="inline-flex items-center gap-1.5 shrink-0 rounded-full border border-kenenti-navy/15 bg-white px-3 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-heading font-extrabold text-kenenti-navy shadow-sm transition-all hover:border-kenenti-yellow hover:bg-[#0F2143] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kenenti-yellow cursor-pointer"
+=======
+            className="inline-flex items-center gap-1.5 shrink-0 rounded-xl border border-kenenti-navy/10 bg-[#FAF8F5] px-3 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-heading font-bold text-kenenti-navy transition-colors hover:bg-kenenti-sand/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kenenti-yellow cursor-pointer"
+>>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
           >
             <ChevronsUpDown className="h-3.5 w-3.5 text-[#D98A1C]" aria-hidden="true" />
             <span>{allExpanded ? "Tout replier" : "Tout déplier"}</span>
           </button>
         </div>
 
+<<<<<<< HEAD
         {/* Barre de filtres rapides Mobile & Tablette (Pills tactiles horizontales) */}
         <div
           role="tablist"
@@ -190,6 +223,15 @@ export function FaqSection() {
             <HelpCircle className="h-3.5 w-3.5" aria-hidden="true" />
             <span>Toutes ({FAQ_ITEMS.length})</span>
           </button>
+=======
+        {/* Accordéon natif <details> / <summary> sans balise de titre dans <summary> */}
+        <div ref={listRef} className="space-y-2.5 sm:space-y-3.5">
+          {FAQ_ITEMS.map((item, index) => (
+            <details key={item.id} open={index === 0}>
+              <summary className="text-xs sm:text-base leading-snug">
+                <span className="flex-1">{item.question}</span>
+              </summary>
+>>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
 
           {FAQ_ITEMS.map((item, idx) => {
             const meta = FAQ_ENRICHED_META[item.id];

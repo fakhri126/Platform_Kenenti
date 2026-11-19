@@ -52,16 +52,16 @@ Ce document recense de manière strictement factuelle l'ensemble des ressources 
   - `WhatsApp-Image-2025-06-20-a-17.37.03_44db0e0c.jpg` — Converse customisées Galaxy par KENENTI
 
 ### 3.2 `public/images/services/`
-- **Photos réelles extraites d'Instagram `@kenenti_brand` et réglées par IA (recadrage `4:3`, suppression de l'icône vidéo, netteté et lumière d'atelier) :**
+- **Photos réelles issues d'Instagram `@kenenti_brand` et réglées par IA (recadrage `4:3`, suppression des icônes vidéo/UI, netteté et lumière d'atelier) :**
   - `univers-chaussures-sneakers.jpg` — Univers 1 : *Chaussures et sneakers* (source : `@kenenti_brand/reel/DeCAtDJt2kL/` — rénovation au pinceau d'une sneaker Puma Suede bleue).
   - `univers-maroquinerie.jpg` — Univers 2 : *Maroquinerie* (source : `@kenenti_brand/reel/DeRhlENNLic/` — restauration et teinture au pinceau d'un sac à main en cuir noir).
+  - `univers-vetements-cuir.jpg` — Univers 3 : *Vêtements en cuir* (source : capture `@kenenti_brand` fournie par l'utilisateur — repigmentation au pistolet d'un blouson en cuir marron).
+  - `univers-interieur-automobile.jpg` — Univers 5 : *Intérieur automobile* (source : capture `@kenenti_brand` fournie par l'utilisateur — repigmentation au pistolet d'un siège auto en cuir cognac).
 - **Archives additionnelles téléchargées depuis `kenenti.com` :**
   - `WhatsApp-Image-2025-06-20-a-17.37.02_4203d7fe.jpg` — Rénovation bottines Timberland (`https://kenenti.com/service-entretient/`)
   - `WhatsApp-Image-2025-06-20-a-17.37.03_6180b03d.jpg` — Rénovation Nike Air Force 1 (`https://kenenti.com/service-entretient/`)
-- **Illustrations d'atelier en attente de photos Instagram réelles (Instagram `@kenenti_brand` limitant l'accès sans connexion aux 24 dernières publications) :**
-  - `univers-vetements-cuir.jpg` — Univers 3 : *Vêtements en cuir*
+- **Illustration d'atelier en attente d'une photo réelle `@kenenti_brand` :**
   - `univers-mobilier.jpg` — Univers 4 : *Mobilier*
-  - `univers-interieur-automobile.jpg` — Univers 5 : *Intérieur automobile*
 
 ### 3.3 `public/images/boutique/`
 - **Famille 1 (Peintures et produits pour le daim, le cuir et le textile) :**

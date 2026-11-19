@@ -23,8 +23,8 @@ export function SiteFooter() {
       >
         {/* Bandeau d'engagements compact sur mobile */}
         <div className="border-b border-white/10 bg-[#0A1731]">
-          <div className="container py-5 sm:py-8">
-            <div className="grid gap-3.5 sm:gap-6 md:grid-cols-3">
+          <div className="container py-4 sm:py-8">
+            <div className="grid gap-2.5 sm:gap-6 md:grid-cols-3">
               <div className="flex items-start gap-2.5 sm:gap-3.5">
                 <div className="flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-kenenti-yellow text-kenenti-navy">
                   <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
@@ -195,10 +195,10 @@ export function SiteFooter() {
         </div>
       </footer>
 
-      {/* Barre de navigation inférieure Mobile fidèle aux écrans 3 & 10 de la maquette */}
+      {/* Barre de navigation inférieure Mobile */}
       <nav
         aria-label="Navigation rapide mobile"
-        className="fixed bottom-0 inset-x-0 z-40 flex lg:hidden items-center justify-around border-t border-kenenti-navy/15 bg-white/95 backdrop-blur-md py-1.5 px-1 shadow-[0_-4px_16px_rgba(15,33,67,0.08)]"
+        className="fixed bottom-0 inset-x-0 z-40 flex lg:hidden items-center justify-around border-t border-kenenti-navy/15 bg-white/95 backdrop-blur-md pt-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] px-1 shadow-[0_-4px_16px_rgba(15,33,67,0.08)]"
       >
         <Link
           href="/"
@@ -232,7 +232,7 @@ export function SiteFooter() {
           href={KENENTI_BRAND.whatsappGeneralUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex flex-col items-center gap-0.5 px-2 py-0.5 text-[10px] font-heading font-bold text-[#D98A1C]"
+          className="flex flex-col items-center justify-center gap-0.5 rounded-xl bg-kenenti-yellow px-3 py-1 text-[10px] font-heading font-extrabold text-kenenti-navy shadow-sm"
         >
           <MessageCircle className="h-4 w-4" aria-hidden="true" />
           <span>Devis</span>
