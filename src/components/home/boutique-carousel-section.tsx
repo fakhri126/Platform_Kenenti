@@ -2,208 +2,147 @@
 
 import * as React from "react";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ShoppingBag,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { BOUTIQUE_POSTERS } from "@/lib/kenenti-data";
 
 export function BoutiqueCarouselSection() {
   const trackRef = React.useRef<HTMLDivElement | null>(null);
-  const slideRefs = React.useRef<(HTMLElement | null)[]>([]);
-  const pendingIndexRef = React.useRef<number | null>(null);
-  const rafIdRef = React.useRef<number>(0);
-  const settleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-
+  const pendingTargetRef = React.useRef<number | null>(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const [settledIndex, setSettledIndex] = React.useState(0);
 
   const totalSlides = BOUTIQUE_POSTERS.length;
+  const activePoster = BOUTIQUE_POSTERS[activeIndex] ?? BOUTIQUE_POSTERS[0];
 
-  const findClosestSlideIndex = React.useCallback((): number => {
-    const track = trackRef.current;
-    if (!track) return 0;
-    const rect = track.getBoundingClientRect();
-    const center = rect.left + rect.width / 2;
-
-    let closestIdx = 0;
-    let minDistance = Infinity;
-
-    slideRefs.current.forEach((slide, idx) => {
-      if (!slide) return;
-      const slideRect = slide.getBoundingClientRect();
-      const slideCenter = slideRect.left + slideRect.width / 2;
-      const distance = Math.abs(slideCenter - center);
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestIdx = idx;
-      }
-    });
-
-    return closestIdx;
-  }, []);
-
-  const scrollToSlide = React.useCallback(
-    (targetIdx: number) => {
-      const clampedIdx = ((targetIdx % totalSlides) + totalSlides) % totalSlides;
-      const slide = slideRefs.current[clampedIdx];
-      if (!slide) return;
-
-      pendingIndexRef.current = clampedIdx;
-      setActiveIndex((prev) => (prev === clampedIdx ? prev : clampedIdx));
-
-      const prefersReducedMotion =
-        typeof window !== "undefined" &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      slide.scrollIntoView({
-        behavior: prefersReducedMotion ? "instant" : "smooth",
-        block: "nearest",
-        inline: "center",
-      });
-    },
-    [totalSlides]
-  );
-
-  React.useEffect(() => {
+  const scrollToSlide = (targetIdx: number) => {
     const track = trackRef.current;
     if (!track) return;
 
-    const onScrollSettled = () => {
-      pendingIndexRef.current = null;
-      const idx = findClosestSlideIndex();
-      setActiveIndex((prev) => (prev === idx ? prev : idx));
-      setSettledIndex((prev) => (prev === idx ? prev : idx));
-    };
+    const clampedIdx = ((targetIdx % totalSlides) + totalSlides) % totalSlides;
+    const slide = track.children[clampedIdx] as HTMLElement | undefined;
+    if (!slide) return;
 
-    const onScroll = () => {
-      if (settleTimerRef.current) {
-        clearTimeout(settleTimerRef.current);
-      }
-      settleTimerRef.current = setTimeout(onScrollSettled, 150);
+    pendingTargetRef.current = clampedIdx;
+    setActiveIndex((prev) => (prev === clampedIdx ? prev : clampedIdx));
 
-      if (pendingIndexRef.current !== null || rafIdRef.current !== 0) return;
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      rafIdRef.current = window.requestAnimationFrame(() => {
-        rafIdRef.current = 0;
-        const idx = findClosestSlideIndex();
-        setActiveIndex((prev) => (prev === idx ? prev : idx));
-      });
-    };
+    slide.scrollIntoView({
+      behavior: prefersReducedMotion ? "instant" : "smooth",
+      block: "nearest",
+      inline: "center",
+    });
 
-    track.addEventListener("scroll", onScroll, { passive: true });
-    track.addEventListener("scrollend", onScrollSettled as EventListener);
+    window.setTimeout(() => {
+      pendingTargetRef.current = null;
+    }, 350);
+  };
 
-    return () => {
-      track.removeEventListener("scroll", onScroll);
-      track.removeEventListener("scrollend", onScrollSettled as EventListener);
-      if (rafIdRef.current) {
-        window.cancelAnimationFrame(rafIdRef.current);
-      }
-      if (settleTimerRef.current) {
-        clearTimeout(settleTimerRef.current);
-      }
-    };
-  }, [findClosestSlideIndex]);
+  const handleScroll = () => {
+    if (pendingTargetRef.current !== null) return;
+    const track = trackRef.current;
+    if (!track || track.clientWidth === 0) return;
 
-  const settledPoster = BOUTIQUE_POSTERS[settledIndex] ?? BOUTIQUE_POSTERS[0];
+    const idx = Math.min(
+      totalSlides - 1,
+      Math.max(0, Math.round(track.scrollLeft / track.clientWidth))
+    );
+    setActiveIndex((prev) => (prev === idx ? prev : idx));
+  };
 
   return (
     <section
       id="notre-boutique"
       aria-roledescription="carousel"
       aria-label="La boutique des professionnels : 3 affiches KENENTI"
-      className="bg-white py-6 sm:py-12 lg:py-16 border-b border-kenenti-navy/10"
+      className="relative bg-[#F6F3EE] py-6 sm:py-12 lg:py-16"
     >
       <div className="container max-w-5xl">
-        {/* Bandeau d'en-tête avec navigation des 3 affiches */}
-        <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#0F2143] via-[#1A3263] to-[#0F2143] p-4 sm:p-6 text-white mb-4 sm:mb-6 shadow-md">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="space-y-0.5">
-              <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-heading font-bold uppercase tracking-wider text-kenenti-yellow">
-                <ShoppingBag className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>Notre Boutique</span>
-              </div>
-              <h2 className="font-heading text-lg sm:text-2xl font-extrabold text-white tracking-tight">
-                Nos produits KENENTI
-              </h2>
+        {/* En-tête minimaliste sur fond clair */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4 sm:mb-6">
+          <div>
+            <p className="text-[10px] sm:text-xs font-heading font-bold uppercase tracking-widest text-[#D98A1C] mb-0.5">
+              Notre Boutique
+            </p>
+            <h2 className="font-heading text-base sm:text-2xl lg:text-3xl font-extrabold text-kenenti-navy tracking-tight">
+              Nos Produits KENENTI
+            </h2>
+          </div>
+
+          <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
+            <div className="w-full sm:w-auto grid grid-cols-3 sm:flex items-center gap-1.5">
+              {BOUTIQUE_POSTERS.map((poster, idx) => {
+                const isCurrent = activeIndex === idx;
+                return (
+                  <button
+                    key={poster.id}
+                    type="button"
+                    aria-current={isCurrent ? "true" : undefined}
+                    onClick={() => scrollToSlide(idx)}
+                    className={`truncate text-center rounded-full px-2 sm:px-3.5 py-1.5 font-heading text-[11px] sm:text-xs font-extrabold transition-all cursor-pointer ${
+                      isCurrent
+                        ? "bg-kenenti-navy text-kenenti-yellow shadow-sm"
+                        : "bg-white text-kenenti-navy/75 border border-kenenti-navy/10 hover:text-kenenti-navy"
+                    }`}
+                  >
+                    {poster.tabLabel}
+                  </button>
+                );
+              })}
             </div>
 
-            <div className="flex items-center justify-between sm:justify-end gap-2">
-              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-                {BOUTIQUE_POSTERS.map((poster, idx) => {
-                  const isCurrent = activeIndex === idx;
-                  return (
-                    <button
-                      key={poster.id}
-                      type="button"
-                      aria-current={isCurrent ? "true" : undefined}
-                      onClick={() => scrollToSlide(idx)}
-                      className={`shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 font-heading text-xs font-bold transition-all cursor-pointer ${
-                        isCurrent
-                          ? "bg-kenenti-yellow text-kenenti-navy shadow-sm"
-                          : "bg-white/10 text-white/85 hover:bg-white/20"
-                      }`}
-                    >
-                      {poster.tabLabel}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="flex items-center gap-1.5 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => scrollToSlide(activeIndex - 1)}
-                  aria-label="Affiche précédente"
-                  className="inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white transition-colors hover:bg-white hover:text-kenenti-navy cursor-pointer"
-                >
-                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollToSlide(activeIndex + 1)}
-                  aria-label="Affiche suivante"
-                  className="inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-kenenti-yellow text-kenenti-navy transition-colors hover:bg-kenenti-yellow/90 cursor-pointer"
-                >
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </button>
-              </div>
+            <div className="hidden sm:flex items-center gap-1.5 shrink-0">
+              <button
+                type="button"
+                onClick={() => scrollToSlide(activeIndex - 1)}
+                aria-label="Affiche précédente"
+                className="inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-kenenti-navy/12 bg-white text-kenenti-navy transition-colors hover:bg-[#FAF8F5] cursor-pointer"
+              >
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSlide(activeIndex + 1)}
+                aria-label="Affiche suivante"
+                className="inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-kenenti-navy text-kenenti-yellow transition-colors hover:bg-kenenti-navy/90 cursor-pointer"
+              >
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </button>
             </div>
           </div>
         </div>
 
         <p className="sr-only" role="status" aria-live="polite">
-          Affiche {settledIndex + 1} sur {totalSlides} : {settledPoster.headline}
+          Affiche {activeIndex + 1} sur {totalSlides} : {activePoster.headline}
         </p>
 
         {/* Piste du Carousel : Style Minimaliste (uniquement les vrais produits, leurs prix et 1 bouton CTA) */}
-        <div ref={trackRef} className="kenenti-carousel-track rounded-2xl sm:rounded-3xl">
+        <div
+          ref={trackRef}
+          onScroll={handleScroll}
+          className="kenenti-carousel-track rounded-2xl"
+        >
           {BOUTIQUE_POSTERS.map((poster, index) => {
             const isTrioPaints = poster.featuredProducts.length === 3;
 
             return (
               <article
                 key={poster.id}
-                ref={(el) => {
-                  slideRefs.current[index] = el;
-                }}
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`${index + 1} sur ${totalSlides} : ${poster.headline}`}
-                className="overflow-hidden rounded-2xl sm:rounded-3xl border border-kenenti-navy/15 bg-white p-5 sm:p-8 lg:p-10 shadow-sm flex flex-col items-center justify-between gap-6"
+                className="overflow-hidden rounded-2xl border border-kenenti-navy/10 bg-white p-4 sm:p-8 lg:p-10 shadow-[0_6px_24px_-12px_rgba(26,50,99,0.08)] flex flex-col items-center justify-between gap-4 sm:gap-6"
               >
-                {/* Affichage minimaliste des produits */}
                 {isTrioPaints ? (
                   /* AFFICHE 1 : Les 3 vraies bouteilles de peinture (Cuir, Daim, Tissu) côte à côte + prix */
-                  <div className="w-full grid grid-cols-3 gap-3 sm:gap-8 items-end max-w-3xl mx-auto">
+                  <div className="w-full grid grid-cols-3 gap-2.5 sm:gap-8 items-end max-w-3xl mx-auto">
                     {poster.featuredProducts.map((prod) => (
                       <div
                         key={prod.name}
                         className="flex flex-col items-center text-center group"
                       >
-                        <div className="relative w-full h-40 sm:h-64 flex items-center justify-center bg-white">
+                        <div className="relative w-full h-32 sm:h-64 flex items-center justify-center bg-white">
                           <img
                             src={prod.image || poster.image}
                             alt={prod.name}
@@ -212,7 +151,7 @@ export function BoutiqueCarouselSection() {
                             className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
                           />
                         </div>
-                        <p className="mt-3 font-heading text-xs sm:text-base font-extrabold text-kenenti-navy">
+                        <p className="mt-2 sm:mt-3 font-heading text-xs sm:text-base font-extrabold text-kenenti-navy">
                           {prod.name}
                         </p>
                         <p className="mt-0.5 font-heading text-sm sm:text-lg font-extrabold text-[#D98A1C]">
@@ -224,7 +163,7 @@ export function BoutiqueCarouselSection() {
                 ) : (
                   /* AFFICHE 2 (Kit de nettoyage) & AFFICHE 3 (Reblanchissant) */
                   <div className="w-full flex flex-col items-center text-center max-w-md mx-auto">
-                    <div className="relative w-full h-56 sm:h-72 flex items-center justify-center bg-white">
+                    <div className="relative w-full h-44 sm:h-72 flex items-center justify-center bg-white">
                       <img
                         src={poster.image}
                         alt={poster.imageAlt}
@@ -243,10 +182,10 @@ export function BoutiqueCarouselSection() {
                 )}
 
                 {/* Un seul bouton Call to Action épuré */}
-                <div className="w-full flex justify-center pt-2 border-t border-kenenti-navy/10">
+                <div className="w-full flex justify-center pt-3 border-t border-kenenti-navy/8">
                   <Link
                     href={poster.ctaHref}
-                    className="inline-flex h-11 sm:h-12 items-center justify-center gap-2 rounded-xl bg-kenenti-yellow px-7 sm:px-9 font-heading text-xs sm:text-sm font-extrabold text-kenenti-navy shadow-sm transition-colors hover:bg-[#f2aa40]"
+                    className="inline-flex h-10 sm:h-12 items-center justify-center gap-2 rounded-xl bg-kenenti-yellow px-7 sm:px-9 font-heading text-xs sm:text-sm font-extrabold text-kenenti-navy shadow-sm transition-colors hover:bg-[#f2aa40]"
                   >
                     <span>{poster.ctaLabel}</span>
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -256,7 +195,29 @@ export function BoutiqueCarouselSection() {
             );
           })}
         </div>
+
+        {/* Points de pagination discrets sous le carrousel */}
+        <div className="mt-3 flex items-center justify-center gap-1.5" aria-hidden="true">
+          {BOUTIQUE_POSTERS.map((poster, idx) => (
+            <button
+              key={poster.id}
+              type="button"
+              tabIndex={-1}
+              onClick={() => scrollToSlide(idx)}
+              className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                activeIndex === idx
+                  ? "w-6 bg-kenenti-navy"
+                  : "w-1.5 bg-kenenti-navy/20 hover:bg-kenenti-navy/40"
+              }`}
+            />
+          ))}
+        </div>
       </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 inset-x-12 h-px bg-gradient-to-r from-transparent via-kenenti-navy/15 to-transparent"
+      />
     </section>
   );
 }

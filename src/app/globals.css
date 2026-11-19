@@ -80,19 +80,6 @@
 input[type="range"].kenenti-range-slider {
   --slider-track-size: 0.375rem;
   --slider-thumb-size: 2.75rem;
-  --slider-track-radius: 999px;
-  --slider-thumb-radius: 50%;
-  --slider-track-color: rgba(255, 255, 255, 0.35);
-  --slider-fill-color: #FAB95B;
-  --slider-thumb-color: #FAB95B;
-  --slider-direction: to right;
-
-  --attr-min: attr(min type(<number>), 0);
-  --attr-max: attr(max type(<number>), 100);
-  --control-value: attr(value type(<number>), 50);
-  --slider-progress: calc(
-    progress(var(--control-value), var(--attr-min), var(--attr-max)) * 100%
-  );
 
   appearance: none;
   inline-size: 100%;
@@ -100,30 +87,14 @@ input[type="range"].kenenti-range-slider {
   margin: 0;
   padding: 0;
   border: 0;
-  border-radius: 0;
   background: transparent;
   cursor: ew-resize;
   touch-action: pan-y;
 }
 
-input[type="range"].kenenti-range-slider:dir(rtl) {
-  --slider-direction: to left;
-}
-
-@supports not (opacity: progress(1, 0, 100)) {
-  input[type="range"].kenenti-range-slider {
-    --slider-progress: calc(
-      (var(--control-value) - var(--attr-min)) /
-      (var(--attr-max) - var(--attr-min)) * 100%
-    );
-  }
-}
-
 /* Separate vendor pseudo-element blocks so browsers never drop the rule */
 input[type="range"].kenenti-range-slider::-webkit-slider-runnable-track {
   block-size: var(--slider-track-size);
-  border: 0;
-  border-radius: var(--slider-track-radius);
   background: transparent;
 }
 
@@ -132,32 +103,20 @@ input[type="range"].kenenti-range-slider::-webkit-slider-thumb {
   appearance: none;
   inline-size: var(--slider-thumb-size);
   block-size: var(--slider-thumb-size);
-  margin-block-start: calc(
-    (var(--slider-track-size) - var(--slider-thumb-size)) / 2
-  );
-  border: 3px solid #1A3263;
-  border-radius: var(--slider-thumb-radius);
+  border-radius: 50%;
   background: transparent;
 }
 
 input[type="range"].kenenti-range-slider::-moz-range-track {
   block-size: var(--slider-track-size);
-  border: 0;
-  border-radius: var(--slider-track-radius);
-  background: transparent;
-}
-
-input[type="range"].kenenti-range-slider::-moz-range-progress {
-  block-size: var(--slider-track-size);
-  border-radius: var(--slider-track-radius);
   background: transparent;
 }
 
 input[type="range"].kenenti-range-slider::-moz-range-thumb {
   inline-size: var(--slider-thumb-size);
   block-size: var(--slider-thumb-size);
-  border: 3px solid #1A3263;
-  border-radius: var(--slider-thumb-radius);
+  border: 0;
+  border-radius: 50%;
   background: transparent;
 }
 
@@ -198,15 +157,29 @@ input[type="range"].kenenti-range-slider:focus-visible {
    Modern Web Guidance: Accordion (<details> / <summary> FAQ)
    ========================================================================== */
 .kenenti-accordion details {
-  border-radius: 0.75rem;
-  border: 1px solid rgba(26, 50, 99, 0.14);
+  border-radius: 1rem;
+  border: 1px solid rgba(26, 50, 99, 0.09);
   background-color: #FFFFFF;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .kenenti-accordion details[open] {
-  border-color: #1A3263;
-  box-shadow: 0 8px 24px -8px rgba(26, 50, 99, 0.1);
+  border-color: rgba(26, 50, 99, 0.28);
+  box-shadow: 0 6px 20px -8px rgba(26, 50, 99, 0.08);
+}
+
+@keyframes kenenti-tab-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-kenenti-tab-progress {
+  transform-origin: left center;
+  animation: kenenti-tab-progress 3000ms linear forwards;
 }
 
 .kenenti-accordion summary {
@@ -287,5 +260,41 @@ input[type="range"].kenenti-range-slider:focus-visible {
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
     transition-behavior: allow-discrete;
+  }
+}
+
+/* ==========================================================================
+   Avis Google Maps : Barre de progression Mobile (2,5s) & Bande passante Web
+   ========================================================================== */
+.animate-kenenti-review-progress {
+  transform-origin: left center;
+  animation: kenenti-tab-progress 2500ms linear forwards;
+}
+
+@keyframes kenenti-reviews-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-kenenti-reviews-marquee {
+  display: flex;
+  width: max-content;
+  animation: kenenti-reviews-marquee 24s linear infinite;
+}
+
+.animate-kenenti-reviews-marquee:hover,
+.animate-kenenti-reviews-marquee:active,
+.animate-kenenti-reviews-marquee:focus-within {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenenti-review-progress,
+  .animate-kenenti-reviews-marquee {
+    animation: none;
   }
 }

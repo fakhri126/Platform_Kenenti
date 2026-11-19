@@ -44,12 +44,19 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#0F2143] text-white shadow-md">
-      {/* Top Bar Mobile-First : ultra-compacte (text-[9.5px] py-1 sur mobile, text-xs sur desktop) */}
+      {/* Top Bar Mobile-First : 1 message clair centré sur mobile, barre complète sur desktop */}
       <div className="bg-[#09152E] text-white/90 text-[9.5px] sm:text-xs py-1 sm:py-1.5 border-b border-white/10">
         <div className="container flex items-center justify-center lg:justify-between gap-1.5">
-          <div className="flex items-center justify-center gap-1.5 sm:gap-3 whitespace-nowrap overflow-x-auto no-scrollbar">
+          <div className="flex sm:hidden items-center justify-center gap-1.5 font-medium text-[10px]">
+            <Truck className="h-3 w-3 text-kenenti-yellow shrink-0" aria-hidden="true" />
+            <span>
+              <strong className="text-kenenti-yellow">Collecte &amp; Retour à domicile</strong> • La Goulette &amp; Menzah 6
+            </span>
+          </div>
+
+          <div className="hidden sm:flex items-center justify-center gap-3 whitespace-nowrap overflow-x-auto no-scrollbar">
             <span className="inline-flex items-center gap-1 font-medium">
-              <Truck className="h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 text-kenenti-yellow shrink-0" aria-hidden="true" />
+              <Truck className="h-3.5 w-3.5 text-kenenti-yellow shrink-0" aria-hidden="true" />
               <span>
                 <strong className="text-kenenti-yellow">Collecte &amp; Retour à domicile</strong>{" "}
                 (Sans vous déplacer)
@@ -57,12 +64,12 @@ export function SiteHeader() {
             </span>
             <span className="text-white/25" aria-hidden="true">|</span>
             <span className="inline-flex items-center gap-1 font-medium">
-              <Sofa className="h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 text-kenenti-yellow shrink-0" aria-hidden="true" />
+              <Sofa className="h-3.5 w-3.5 text-kenenti-yellow shrink-0" aria-hidden="true" />
               <span>Intervention Salons &amp; Auto</span>
             </span>
             <span className="text-white/25" aria-hidden="true">|</span>
             <span className="inline-flex items-center gap-1 font-medium">
-              <PackageCheck className="h-2.5 w-2.5 sm:h-3.5 sm:w-3.5 text-kenenti-yellow shrink-0" aria-hidden="true" />
+              <PackageCheck className="h-3.5 w-3.5 text-kenenti-yellow shrink-0" aria-hidden="true" />
               <span>Ateliers La Goulette &amp; Menzah 6</span>
             </span>
           </div>
@@ -242,14 +249,15 @@ export function SiteHeader() {
             asChild
             variant="default"
             size="sm"
-            className="hidden sm:inline-flex whitespace-nowrap font-extrabold shadow-md ml-1"
+            className="inline-flex min-h-0 h-8 sm:min-h-[40px] sm:h-9 px-2.5 sm:px-3.5 text-[11px] sm:text-xs rounded-lg sm:rounded-md whitespace-nowrap font-extrabold shadow-md ml-1"
           >
             <a
               href={KENENTI_BRAND.whatsappGeneralUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Demander un Devis
+              <span className="sm:hidden">Devis</span>
+              <span className="hidden sm:inline">Demander un Devis</span>
             </a>
           </Button>
         </div>

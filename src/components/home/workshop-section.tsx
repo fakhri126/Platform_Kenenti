@@ -5,6 +5,7 @@ import {
   ArrowRight,
   MessageCircle,
   ExternalLink,
+  Star,
 } from "lucide-react";
 import { WORKSHOPS, KENENTI_BRAND } from "@/lib/kenenti-data";
 
@@ -13,12 +14,12 @@ export function WorkshopSection() {
     <section
       id="notre-atelier"
       aria-labelledby="workshop-heading"
-      className="bg-[#F7F6F2] py-6 sm:py-14 lg:py-20 border-b border-kenenti-navy/10"
+      className="relative bg-[#F7F6F2] py-6 sm:py-12 lg:py-16"
     >
       <div className="container max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-7 items-stretch">
-          {/* Colonne Gauche : Carte Sombre "L'Atelier & Notre Savoir-Faire" fidèle à l'écran 10 de la maquette */}
-          <div className="lg:col-span-6 flex flex-col overflow-hidden rounded-2xl sm:rounded-3xl bg-[#0F2143] text-white shadow-sm sm:shadow-card">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
+          {/* Colonne Gauche : Carte Sombre "L'Atelier & Notre Savoir-Faire" */}
+          <div className="lg:col-span-6 flex flex-col overflow-hidden rounded-2xl bg-[#0F2143] text-white shadow-sm">
             <div className="relative h-40 sm:h-60 w-full overflow-hidden">
               <img
                 src="/images/ateliers/atelier-presse-1.jpg"
@@ -62,8 +63,8 @@ export function WorkshopSection() {
             </div>
           </div>
 
-          {/* Colonne Droite : "Nos ateliers" (2 cartes côte à côte MÊME SUR MOBILE comme sur l'écran 10 de la maquette !) */}
-          <div className="lg:col-span-6 flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-kenenti-navy/15 bg-white p-4 sm:p-7 shadow-sm space-y-4">
+          {/* Colonne Droite : "Nos ateliers" (2 cartes côte à côte même sur mobile) */}
+          <div className="lg:col-span-6 flex flex-col justify-between rounded-2xl border border-kenenti-navy/10 bg-white p-4 sm:p-7 shadow-[0_6px_20px_-12px_rgba(26,50,99,0.08)] space-y-4">
             <div>
               <div className="mb-3 sm:mb-4">
                 <p className="text-[10px] sm:text-xs font-heading font-bold uppercase tracking-widest text-[#D98A1C]">
@@ -74,12 +75,12 @@ export function WorkshopSection() {
                 </h3>
               </div>
 
-              {/* Grille 2 colonnes sur mobile (grid-cols-2) fidèle à l'écran 10 de la maquette */}
+              {/* Grille 2 colonnes sur mobile (grid-cols-2) */}
               <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
                 {WORKSHOPS.map((workshop) => (
                   <article
                     key={workshop.id}
-                    className="overflow-hidden rounded-xl sm:rounded-2xl border border-kenenti-navy/15 bg-[#FAF8F5] flex flex-col justify-between"
+                    className="overflow-hidden rounded-2xl border border-kenenti-navy/10 bg-[#FAF8F5] flex flex-col justify-between"
                   >
                     <div className="relative h-24 sm:h-32 w-full overflow-hidden bg-kenenti-navy">
                       <img
@@ -93,9 +94,24 @@ export function WorkshopSection() {
 
                     <div className="p-2.5 sm:p-4 space-y-2 flex-1 flex flex-col justify-between">
                       <div>
-                        <h4 className="font-heading text-xs sm:text-base font-extrabold text-kenenti-navy">
-                          {workshop.shortName}
-                        </h4>
+                        <div className="flex items-center justify-between gap-1">
+                          <h4 className="font-heading text-xs sm:text-base font-extrabold text-kenenti-navy">
+                            {workshop.shortName}
+                          </h4>
+                          <a
+                            href={workshop.reviewsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-0.5 rounded-md bg-white px-1.5 py-0.5 text-[10px] font-heading font-extrabold text-kenenti-navy border border-kenenti-navy/10 hover:border-kenenti-navy/30 transition-colors"
+                            title={`${workshop.googleRating}/5 sur Google (${workshop.googleReviewCount} avis)`}
+                          >
+                            <span>{workshop.googleRating}</span>
+                            <Star className="h-2.5 w-2.5 fill-[#FBBC05] text-[#FBBC05]" aria-hidden="true" />
+                            <span className="text-[9px] font-medium text-kenenti-navy/60">
+                              ({workshop.googleReviewCount})
+                            </span>
+                          </a>
+                        </div>
                         <p className="mt-0.5 text-[10.5px] sm:text-xs text-kenenti-navy/75 leading-snug line-clamp-2">
                           {workshop.address}
                         </p>
@@ -149,6 +165,10 @@ export function WorkshopSection() {
           </div>
         </div>
       </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 inset-x-12 h-px bg-gradient-to-r from-transparent via-kenenti-navy/15 to-transparent"
+      />
     </section>
   );
 }
