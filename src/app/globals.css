@@ -289,3 +289,33 @@ input[type="range"].kenenti-range-slider:focus-visible {
     transition-behavior: allow-discrete;
   }
 }
+
+/* ==========================================================================
+    Bande défilante continue ("Ils parlent de nous" - Media Logos Marquee)
+   ========================================================================== */
+@keyframes kenenti-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.kenenti-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: kenenti-marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.kenenti-marquee-track:hover,
+.kenenti-marquee-track:active {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kenenti-marquee-track {
+    animation: none;
+  }
+}

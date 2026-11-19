@@ -106,7 +106,7 @@ export function SiteFooter() {
                 {FIVE_UNIVERSES.map((universe) => (
                   <li key={universe.id}>
                     <Link
-                      href={`/#univers-${universe.slug}`}
+                      href={`/services#univers-${universe.slug}`}
                       className="inline-flex items-center gap-1.5 hover:text-kenenti-yellow transition-colors py-0.5"
                     >
                       <span className="text-kenenti-yellow font-bold">
@@ -208,14 +208,14 @@ export function SiteFooter() {
           <span>Accueil</span>
         </Link>
         <Link
-          href="/#nos-5-univers"
+          href="/services"
           className="flex flex-col items-center gap-0.5 px-2 py-0.5 text-[10px] font-heading font-semibold text-kenenti-navy/65 hover:text-kenenti-navy"
         >
           <Footprints className="h-4 w-4" aria-hidden="true" />
           <span>Services</span>
         </Link>
         <Link
-          href="/#notre-boutique"
+          href="/boutique"
           className="flex flex-col items-center gap-0.5 px-2 py-0.5 text-[10px] font-heading font-semibold text-kenenti-navy/65 hover:text-kenenti-navy"
         >
           <ShoppingBag className="h-4 w-4" aria-hidden="true" />

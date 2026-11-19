@@ -32,8 +32,8 @@ import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { label: "Accueil", href: "/", icon: Sparkles },
-  { label: "Services", href: "/#nos-5-univers", icon: Footprints },
-  { label: "Boutique", href: "/#notre-boutique", icon: ShoppingBag },
+  { label: "Services", href: "/services", icon: Footprints },
+  { label: "Boutique", href: "/boutique", icon: ShoppingBag },
   { label: "Notre Atelier", href: "/#notre-atelier", icon: MapPin },
   { label: "FAQ", href: "/#faq", icon: HelpCircle },
   { label: "Contact", href: "/#contact-devis", icon: MessageCircle },
@@ -121,7 +121,8 @@ export function SiteHeader() {
               <nav aria-label="Menu mobile" className="mt-4">
                 <ul className="flex flex-col space-y-1">
                   {NAV_ITEMS.map((item) => {
-                    const isCurrent = item.href === "/" && pathname === "/";
+                    const isCurrent =
+                      !item.href.includes("#") && pathname === item.href;
                     const Icon = item.icon;
                     return (
                       <li key={item.href}>
@@ -197,7 +198,8 @@ export function SiteHeader() {
         >
           <ul className="flex items-center gap-1">
             {NAV_ITEMS.map((item) => {
-              const isCurrent = item.href === "/" && pathname === "/";
+              const isCurrent =
+                !item.href.includes("#") && pathname === item.href;
               return (
                 <li key={item.href}>
                   <Link
@@ -220,7 +222,7 @@ export function SiteHeader() {
         {/* Zone Droite (3 col) : Recherche, Panier & Bouton Devis Desktop */}
         <div className="flex items-center justify-end gap-1 sm:gap-2 lg:col-span-3">
           <Link
-            href="/#notre-boutique"
+            href="/boutique"
             aria-label="Rechercher un produit dans la boutique"
             className="inline-flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full text-white/90 hover:bg-white/10 hover:text-kenenti-yellow transition-colors"
           >
@@ -228,7 +230,7 @@ export function SiteHeader() {
           </Link>
 
           <Link
-            href="/#notre-boutique"
+            href="/boutique"
             aria-label="Accéder à la boutique KENENTI (3 gammes)"
             className="relative inline-flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full text-white/90 hover:bg-white/10 hover:text-kenenti-yellow transition-colors"
           >
