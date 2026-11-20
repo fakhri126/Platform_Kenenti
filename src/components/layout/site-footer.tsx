@@ -106,7 +106,7 @@ export function SiteFooter() {
                 {FIVE_UNIVERSES.map((universe) => (
                   <li key={universe.id}>
                     <Link
-                      href={`/services#univers-${universe.slug}`}
+                      href={`/services/${universe.slug}`}
                       className="inline-flex items-center gap-1.5 hover:text-kenenti-yellow transition-colors py-0.5"
                     >
                       <span className="text-kenenti-yellow font-bold">
@@ -228,15 +228,13 @@ export function SiteFooter() {
           <Hammer className="h-4 w-4" aria-hidden="true" />
           <span>Atelier</span>
         </Link>
-        <a
-          href={KENENTI_BRAND.whatsappGeneralUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/services"
           className="flex flex-col items-center justify-center gap-0.5 rounded-xl bg-kenenti-yellow px-3 py-1 text-[10px] font-heading font-extrabold text-kenenti-navy shadow-sm"
         >
           <MessageCircle className="h-4 w-4" aria-hidden="true" />
           <span>Devis</span>
-        </a>
+        </Link>
       </nav>
     </>
   );

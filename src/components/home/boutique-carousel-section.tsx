@@ -28,10 +28,12 @@ export function BoutiqueCarouselSection() {
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    slide.scrollIntoView({
-      behavior: prefersReducedMotion ? "instant" : "smooth",
-      block: "nearest",
-      inline: "center",
+    const targetLeft =
+      slide.offsetLeft - (track.clientWidth - slide.offsetWidth) / 2;
+
+    track.scrollTo({
+      left: Math.max(0, targetLeft),
+      behavior: prefersReducedMotion ? "auto" : "smooth",
     });
 
     window.setTimeout(() => {
@@ -132,35 +134,17 @@ export function BoutiqueCarouselSection() {
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`${index + 1} sur ${totalSlides} : ${poster.headline}`}
-<<<<<<< HEAD
-                className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-kenenti-navy/15 bg-gradient-to-b from-white via-[#FCFBF9] to-[#F5F2EB] p-4 sm:p-8 lg:p-10 shadow-[0_8px_28px_rgba(15,33,67,0.08)] flex flex-col items-center justify-between gap-5"
-              >
-                <div
-                  className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#0F2143] via-kenenti-yellow to-[#0F2143]"
-                  aria-hidden="true"
-                />
-
-                {/* Affichage chic des produits en cadres ordonnés */}
-                {isTrioPaints ? (
-                  /* AFFICHE 1 : Les 3 vraies bouteilles de peinture (Cuir, Daim, Tissu) côte à côte + prix */
-                  <div className="w-full grid grid-cols-3 gap-2 sm:gap-6 items-stretch max-w-3xl mx-auto">
-=======
                 className="overflow-hidden rounded-2xl border border-kenenti-navy/10 bg-white p-4 sm:p-8 lg:p-10 shadow-[0_6px_24px_-12px_rgba(26,50,99,0.08)] flex flex-col items-center justify-between gap-4 sm:gap-6"
               >
                 {isTrioPaints ? (
                   /* AFFICHE 1 : Les 3 vraies bouteilles de peinture (Cuir, Daim, Tissu) côte à côte + prix */
                   <div className="w-full grid grid-cols-3 gap-2.5 sm:gap-8 items-end max-w-3xl mx-auto">
->>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
                     {poster.featuredProducts.map((prod) => (
                       <div
                         key={prod.name}
-                        className="flex flex-col items-center justify-between text-center group rounded-2xl border border-kenenti-navy/10 bg-white p-2 sm:p-4 shadow-sm transition-all hover:border-kenenti-yellow hover:shadow-md"
+                        className="flex flex-col items-center text-center group"
                       >
-<<<<<<< HEAD
-                        <div className="relative w-full h-32 sm:h-56 flex items-center justify-center bg-white rounded-xl overflow-hidden">
-=======
                         <div className="relative w-full h-32 sm:h-64 flex items-center justify-center bg-white">
->>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
                           <img
                             src={prod.image || poster.image}
                             alt={prod.name}
@@ -169,35 +153,19 @@ export function BoutiqueCarouselSection() {
                             className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
                           />
                         </div>
-<<<<<<< HEAD
-                        <div className="mt-2 pt-2 border-t border-kenenti-navy/10 w-full">
-                          <p className="font-heading text-[11px] sm:text-base font-extrabold text-kenenti-navy leading-tight">
-                            {prod.name}
-                          </p>
-                          <span className="mt-1 inline-block rounded-full bg-kenenti-yellow/25 px-2.5 py-0.5 font-heading text-xs sm:text-base font-extrabold text-[#B86E08]">
-                            {prod.price}
-                          </span>
-                        </div>
-=======
                         <p className="mt-2 sm:mt-3 font-heading text-xs sm:text-base font-extrabold text-kenenti-navy">
                           {prod.name}
                         </p>
                         <p className="mt-0.5 font-heading text-sm sm:text-lg font-extrabold text-[#D98A1C]">
                           {prod.price}
                         </p>
->>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
                       </div>
                     ))}
                   </div>
                 ) : (
                   /* AFFICHE 2 (Kit de nettoyage) & AFFICHE 3 (Reblanchissant) */
-<<<<<<< HEAD
-                  <div className="w-full flex flex-col items-center text-center max-w-md mx-auto rounded-2xl border border-kenenti-navy/10 bg-white p-4 sm:p-6 shadow-sm">
-                    <div className="relative w-full h-48 sm:h-64 flex items-center justify-center bg-white">
-=======
                   <div className="w-full flex flex-col items-center text-center max-w-md mx-auto">
                     <div className="relative w-full h-44 sm:h-72 flex items-center justify-center bg-white">
->>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
                       <img
                         src={poster.image}
                         alt={poster.imageAlt}
@@ -206,29 +174,20 @@ export function BoutiqueCarouselSection() {
                         className="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105"
                       />
                     </div>
-                    <div className="mt-3 pt-3 border-t border-kenenti-navy/10 w-full">
-                      <p className="font-heading text-base sm:text-xl font-extrabold text-kenenti-navy">
-                        {poster.featuredProducts[0]?.name || poster.headline}
-                      </p>
-                      <span className="mt-1.5 inline-block rounded-full bg-kenenti-yellow/25 px-3.5 py-0.5 font-heading text-base sm:text-xl font-extrabold text-[#B86E08]">
-                        {poster.featuredProducts[0]?.price}
-                      </span>
-                    </div>
+                    <p className="mt-3 font-heading text-base sm:text-xl font-extrabold text-kenenti-navy">
+                      {poster.featuredProducts[0]?.name || poster.headline}
+                    </p>
+                    <p className="mt-1 font-heading text-lg sm:text-2xl font-extrabold text-[#D98A1C]">
+                      {poster.featuredProducts[0]?.price}
+                    </p>
                   </div>
                 )}
 
                 {/* Un seul bouton Call to Action épuré */}
-<<<<<<< HEAD
-                <div className="w-full flex justify-center pt-1">
-                  <Link
-                    href={poster.ctaHref}
-                    className="inline-flex h-10 sm:h-12 w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0F2143] to-[#1A3263] px-7 sm:px-9 font-heading text-xs sm:text-sm font-extrabold text-kenenti-yellow shadow-md transition-all hover:from-kenenti-yellow hover:to-[#f2aa40] hover:text-kenenti-navy"
-=======
                 <div className="w-full flex justify-center pt-3 border-t border-kenenti-navy/8">
                   <Link
                     href={poster.ctaHref}
                     className="inline-flex h-10 sm:h-12 items-center justify-center gap-2 rounded-xl bg-kenenti-yellow px-7 sm:px-9 font-heading text-xs sm:text-sm font-extrabold text-kenenti-navy shadow-sm transition-colors hover:bg-[#f2aa40]"
->>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
                   >
                     <span>{poster.ctaLabel}</span>
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />

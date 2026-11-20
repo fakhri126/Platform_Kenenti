@@ -11,7 +11,6 @@ import {
   Truck,
   Sofa,
   PackageCheck,
-  MessageCircle,
   Footprints,
   Sparkles,
   MapPin,
@@ -28,6 +27,7 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { KENENTI_BRAND } from "@/lib/kenenti-data";
+import { useCart } from "@/lib/cart-store";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -36,11 +36,11 @@ const NAV_ITEMS = [
   { label: "Boutique", href: "/boutique", icon: ShoppingBag },
   { label: "Notre Atelier", href: "/#notre-atelier", icon: MapPin },
   { label: "FAQ", href: "/#faq", icon: HelpCircle },
-  { label: "Contact", href: "/#contact-devis", icon: MessageCircle },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const { totalCount } = useCart();
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#0F2143] text-white shadow-md">
@@ -157,13 +157,9 @@ export function SiteHeader() {
               <div className="mt-5 space-y-2.5 border-t border-white/15 pt-4">
                 <SheetClose asChild>
                   <Button asChild className="w-full h-10 text-xs font-extrabold" size="default">
-                    <a
-                      href={KENENTI_BRAND.whatsappGeneralUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <Link href="/services">
                       Demander un Devis Rénovation
-                    </a>
+                    </Link>
                   </Button>
                 </SheetClose>
                 <div className="rounded-xl bg-white/5 border border-white/10 p-3 text-[11px] text-white/85 space-y-1">
@@ -237,13 +233,13 @@ export function SiteHeader() {
           </Link>
 
           <Link
-            href="/boutique"
-            aria-label="Accéder à la boutique KENENTI (3 gammes)"
+            href="/panier"
+            aria-label={`Accéder au panier (${totalCount} article(s))`}
             className="relative inline-flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full text-white/90 hover:bg-white/10 hover:text-kenenti-yellow transition-colors"
           >
             <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
             <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-kenenti-yellow font-heading text-[9.5px] font-extrabold text-kenenti-navy shadow-sm">
-              3
+              {totalCount}
             </span>
           </Link>
 
@@ -253,14 +249,10 @@ export function SiteHeader() {
             size="sm"
             className="inline-flex min-h-0 h-8 sm:min-h-[40px] sm:h-9 px-2.5 sm:px-3.5 text-[11px] sm:text-xs rounded-lg sm:rounded-md whitespace-nowrap font-extrabold shadow-md ml-1"
           >
-            <a
-              href={KENENTI_BRAND.whatsappGeneralUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="/services">
               <span className="sm:hidden">Devis</span>
               <span className="hidden sm:inline">Demander un Devis</span>
-            </a>
+            </Link>
           </Button>
         </div>
       </div>

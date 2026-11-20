@@ -54,10 +54,10 @@ export function WorkshopSection() {
               </p>
 
               <Link
-                href="/notre-atelier"
+                href="/services"
                 className="flex h-10 sm:h-12 w-full items-center justify-center gap-2 rounded-xl bg-kenenti-yellow px-4 font-heading text-xs sm:text-sm font-extrabold text-kenenti-navy shadow-md"
               >
-                <span>Découvrir notre atelier</span>
+                <span>Demander un devis en atelier</span>
                 <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
               </Link>
             </div>
@@ -77,34 +77,19 @@ export function WorkshopSection() {
 
               {/* Grille 2 colonnes sur mobile (grid-cols-2) */}
               <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
-                {WORKSHOPS.map((workshop, idx) => (
+                {WORKSHOPS.map((workshop) => (
                   <article
                     key={workshop.id}
-<<<<<<< HEAD
-                    className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-kenenti-navy/15 bg-gradient-to-b from-white to-[#FAF8F5] shadow-sm transition-all hover:border-kenenti-yellow hover:shadow-md flex flex-col justify-between"
-=======
                     className="overflow-hidden rounded-2xl border border-kenenti-navy/10 bg-[#FAF8F5] flex flex-col justify-between"
->>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
                   >
-                    <div
-                      className="absolute inset-x-0 top-0 z-10 h-1 bg-gradient-to-r from-[#0F2143] via-kenenti-yellow to-[#0F2143]"
-                      aria-hidden="true"
-                    />
                     <div className="relative h-24 sm:h-32 w-full overflow-hidden bg-kenenti-navy">
                       <img
                         src={workshop.image}
                         alt={workshop.name}
                         loading="lazy"
                         decoding="async"
-                        className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                        className="h-full w-full object-cover object-center"
                       />
-                      <div
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#09152E]/75 via-transparent to-transparent"
-                        aria-hidden="true"
-                      />
-                      <span className="absolute bottom-1.5 left-2 rounded-md bg-kenenti-yellow px-1.5 py-0.5 font-heading text-[8.5px] sm:text-[10px] font-extrabold text-kenenti-navy shadow-sm">
-                        Atelier 0{idx + 1}
-                      </span>
                     </div>
 
                     <div className="p-2.5 sm:p-4 space-y-2 flex-1 flex flex-col justify-between">

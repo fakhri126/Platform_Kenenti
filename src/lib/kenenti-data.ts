@@ -17,7 +17,6 @@ export interface UniverseItem {
   description: string;
   image: string;
   imageAlt: string;
-  realArchiveImage?: string;
   highlights: string[];
 }
 
@@ -59,6 +58,15 @@ export interface GoogleReviewItem {
   reviewUrl: string;
 }
 
+const LA_GOULETTE_MAP_URL =
+  "https://www.google.com/maps/place/Kenenti/@36.8183374,10.304817,17z/data=!3m1!4b1!4m6!3m5!1s0x12fd4b0057cf5def:0x7d6ef82264e28430!8m2!3d36.8183374!4d10.304817!16s%2Fg%2F11vwldscjf";
+const LA_GOULETTE_REVIEWS_URL =
+  "https://www.google.com/maps/place/Kenenti/@36.8183374,10.304817,17z/data=!4m8!3m7!1s0x12fd4b0057cf5def:0x7d6ef82264e28430!8m2!3d36.8183374!4d10.304817!9m1!1b1!16s%2Fg%2F11vwldscjf";
+const MENZAH_MAP_URL =
+  "https://www.google.com/maps/place/Kenenti+Manzah+6/@36.8462588,10.1651438,17z/data=!3m1!4b1!4m6!3m5!1s0x12fd330046e24d7d:0xe442cff36918290c!8m2!3d36.8462588!4d10.1677187!16s%2Fg%2F11m6sngk7n";
+const MENZAH_REVIEWS_URL =
+  "https://www.google.com/maps/place/Kenenti+Manzah+6/@36.8462588,10.1651438,17z/data=!4m8!3m7!1s0x12fd330046e24d7d:0xe442cff36918290c!8m2!3d36.8462588!4d10.1677187!9m1!1b1!16s%2Fg%2F11m6sngk7n";
+
 export const KENENTI_BRAND = {
   name: "KENENTI",
   slogan: "kenenti tjik win enti",
@@ -76,52 +84,37 @@ export const KENENTI_BRAND = {
     youtube: "https://www.youtube.com/channel/UCtQUDP6dWbVcMMGUFmXHQEw/featured",
   },
   logos: {
-    dark: "/images/logo/cropped-logo1-192x192.png",
     icon192: "/images/logo/cropped-logo1-192x192.png",
-    userLogo: "/images/logo/logo-kenenti-user.png",
   },
 };
 
-/**
- * Paires Avant / Après pour le comparateur interactif du Hero
- * Les 3 types d'entretien générés par l'IA : Nettoyage, Peinture, Rénovation
- */
 export const HERO_BEFORE_AFTER_PAIRS: BeforeAfterPair[] = [
   {
     id: "entretien-nettoyage",
     title: "Nettoyage",
     beforeImage: "/images/avant-apres/sneaker-profile-before.jpg",
-    beforeAlt:
-      "Avant nettoyage : Sneaker en cuir blanc tachée et jaunie avant l'intervention KENENTI",
+    beforeAlt: "Avant nettoyage : Sneaker en cuir blanc tachée et jaunie",
     afterImage: "/images/avant-apres/sneaker-profile-after.jpg",
-    afterAlt:
-      "Après nettoyage : La même sneaker en cuir blanc entièrement nettoyée et détachée par KENENTI",
+    afterAlt: "Après nettoyage : Sneaker en cuir blanc nettoyée par KENENTI",
   },
   {
     id: "entretien-peinture",
     title: "Peinture",
     beforeImage: "/images/avant-apres/peinture-before.jpg",
-    beforeAlt:
-      "Avant peinture : Chaussure en daim délavée et décolorée avant teinture KENENTI",
+    beforeAlt: "Avant peinture : Chaussure en daim délavée avant teinture",
     afterImage: "/images/avant-apres/peinture-after.jpg",
-    afterAlt:
-      "Après peinture : La même chaussure en daim recolorée avec une teinte bleu profond uniforme",
+    afterAlt: "Après peinture : Chaussure en daim recolorée en bleu profond",
   },
   {
     id: "entretien-renovation",
     title: "Rénovation",
     beforeImage: "/images/avant-apres/renovation-before.jpg",
-    beforeAlt:
-      "Avant rénovation : Mocassin en cuir cognac desséché, plissé et griffé avant intervention KENENTI",
+    beforeAlt: "Avant rénovation : Mocassin en cuir cognac desséché et griffé",
     afterImage: "/images/avant-apres/renovation-after.jpg",
-    afterAlt:
-      "Après rénovation : Le même mocassin en cuir cognac nourri, repigmenté et patiné en atelier KENENTI",
+    afterAlt: "Après rénovation : Mocassin en cuir cognac nourri et patiné",
   },
 ];
 
-/**
- * Section 4.2 — Nos 5 univers (Ordre exact du cahier des charges, descriptions résumées)
- */
 export const FIVE_UNIVERSES: UniverseItem[] = [
   {
     id: 1,
@@ -133,9 +126,7 @@ export const FIVE_UNIVERSES: UniverseItem[] = [
     description:
       "Soin complet, déjaunissement, recoloration et customisation de vos sneakers et chaussures.",
     image: "/images/services/univers-chaussures-sneakers.jpg",
-    imageAlt:
-      "Travail réel KENENTI (@kenenti_brand, optimisé IA) : teinture et rénovation manuelle au pinceau d'une sneaker Puma Suede bleue en atelier",
-    realArchiveImage: "/images/services/WhatsApp-Image-2025-06-20-a-17.37.03_6180b03d.jpg",
+    imageAlt: "Rénovation manuelle au pinceau d'une sneaker en daim en atelier",
     highlights: ["Nettoyage approfondi", "Rénovation & teinture", "Customisation"],
   },
   {
@@ -148,9 +139,7 @@ export const FIVE_UNIVERSES: UniverseItem[] = [
     description:
       "Détachage, réparation des coins et repigmentation minutieuse de vos sacs et petite maroquinerie.",
     image: "/images/services/univers-maroquinerie.jpg",
-    imageAlt:
-      "Travail réel KENENTI (@kenenti_brand, optimisé IA) : restauration et repigmentation au pinceau fin d'un sac à main en cuir noir en atelier",
-    realArchiveImage: "/images/avant-apres/WhatsApp-Image-2025-06-20-a-17.37.00_6bcb7953.jpg",
+    imageAlt: "Restauration et repigmentation au pinceau fin d'un sac en cuir noir",
     highlights: ["Soin des cuirs précieux", "Coins & tranches", "Repigmentation"],
   },
   {
@@ -163,8 +152,7 @@ export const FIVE_UNIVERSES: UniverseItem[] = [
     description:
       "Assouplissement, nutrition et ravivage couleur de vos vestes en cuir ou daim.",
     image: "/images/services/univers-vetements-cuir.jpg",
-    imageAlt:
-      "Travail réel KENENTI (@kenenti_brand, optimisé IA) : repigmentation et restauration au pistolet d'un blouson en cuir marron dans l'atelier",
+    imageAlt: "Repigmentation et restauration au pistolet d'un blouson en cuir marron",
     highlights: ["Nutrition du cuir", "Recoloration", "Soin des zones d'usure"],
   },
   {
@@ -177,7 +165,7 @@ export const FIVE_UNIVERSES: UniverseItem[] = [
     description:
       "Traitement des griffures, craquelures et décolorations pour redonner éclat à vos salons.",
     image: "/images/services/univers-mobilier.jpg",
-    imageAlt: "Rénovation et repigmentation Avant / Après d'un fauteuil Chesterfield en cuir en atelier",
+    imageAlt: "Rénovation et repigmentation Avant / Après d'un fauteuil en cuir",
     highlights: ["Canapés & fauteuils", "Soin anti-craquelures", "Étude personnalisée"],
   },
   {
@@ -190,22 +178,18 @@ export const FIVE_UNIVERSES: UniverseItem[] = [
     description:
       "Restauration de l'usure et recoloration des sièges, volants et garnitures automobiles.",
     image: "/images/services/univers-interieur-automobile.jpg",
-    imageAlt:
-      "Travail réel KENENTI (@kenenti_brand, optimisé IA) : repigmentation au pistolet d'un siège automobile en cuir cognac dans l'atelier",
+    imageAlt: "Repigmentation au pistolet d'un siège automobile en cuir cognac",
     highlights: ["Sièges & sellerie cuir", "Rénovation volants", "Devis sur mesure"],
   },
 ];
 
-/**
- * Section 4.3 — Notre boutique (Exactement 3 affiches promotionnelles)
- */
 export const BOUTIQUE_POSTERS: BoutiquePoster[] = [
   {
     id: 1,
     tabLabel: "Peintures",
     headline: "Peintures Cuir, Daim & Tissu",
     image: "/images/kenenti/real/affiche-trio-vrais-flacons.png",
-    imageAlt: "Les trois vraies bouteilles de peinture KENENTI : Cuir, Daim et Tissu",
+    imageAlt: "Les trois bouteilles de peinture KENENTI : Cuir, Daim et Tissu",
     featuredProducts: [
       {
         name: "Peinture Cuir",
@@ -260,9 +244,6 @@ export const BOUTIQUE_POSTERS: BoutiquePoster[] = [
   },
 ];
 
-/**
- * Section 4.5 — Découvrir notre atelier (La Goulette & Menzah 6)
- */
 export const WORKSHOPS: WorkshopLocation[] = [
   {
     id: "la-goulette",
@@ -272,8 +253,8 @@ export const WORKSHOPS: WorkshopLocation[] = [
     address: "Rue des Ecoles, La Goulette 2060",
     phoneDisplay: "+216 29 286 445",
     phoneHref: "tel:+21629286445",
-    mapUrl: "https://www.google.com/maps/place/Kenenti/@36.8183374,10.304817,17z/data=!3m1!4b1!4m6!3m5!1s0x12fd4b0057cf5def:0x7d6ef82264e28430!8m2!3d36.8183374!4d10.304817!16s%2Fg%2F11vwldscjf",
-    reviewsUrl: "https://www.google.com/maps/place/Kenenti/@36.8183374,10.304817,17z/data=!4m8!3m7!1s0x12fd4b0057cf5def:0x7d6ef82264e28430!8m2!3d36.8183374!4d10.304817!9m1!1b1!16s%2Fg%2F11vwldscjf",
+    mapUrl: LA_GOULETTE_MAP_URL,
+    reviewsUrl: LA_GOULETTE_REVIEWS_URL,
     googleRating: "4,1",
     googleReviewCount: 52,
     image: "/images/ateliers/atelier-presse-1.jpg",
@@ -286,18 +267,14 @@ export const WORKSHOPS: WorkshopLocation[] = [
     address: "Kenenti Manzah 6, R5W9+G34, Ariana",
     phoneDisplay: "+216 28 877 074",
     phoneHref: "tel:+21628877074",
-    mapUrl: "https://www.google.com/maps/place/Kenenti+Manzah+6/@36.8462588,10.1651438,17z/data=!3m1!4b1!4m6!3m5!1s0x12fd330046e24d7d:0xe442cff36918290c!8m2!3d36.8462588!4d10.1677187!16s%2Fg%2F11m6sngk7n",
-    reviewsUrl: "https://www.google.com/maps/place/Kenenti+Manzah+6/@36.8462588,10.1651438,17z/data=!4m8!3m7!1s0x12fd330046e24d7d:0xe442cff36918290c!8m2!3d36.8462588!4d10.1677187!9m1!1b1!16s%2Fg%2F11m6sngk7n",
+    mapUrl: MENZAH_MAP_URL,
+    reviewsUrl: MENZAH_REVIEWS_URL,
     googleRating: "4,5",
     googleReviewCount: 23,
     image: "/images/ateliers/d3_1.jpg",
   },
 ];
 
-/**
- * Avis Google Maps authentiques vérifiés sur les fiches officielles
- * KENENTI La Goulette (4,1 ★ • 52 avis) & KENENTI Menzah 6 (4,5 ★ • 23 avis)
- */
 export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
   {
     id: "google-review-1",
@@ -308,8 +285,7 @@ export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
     workshopId: "la-goulette",
     universeTag: "Maroquinerie & Sacs",
     text: "Très satisfaite de la rénovation de mes sacs, merci à toute l'équipe pour son professionnalisme.",
-    reviewUrl:
-      "https://www.google.com/maps/place/Kenenti/@36.8183374,10.304817,17z/data=!4m8!3m7!1s0x12fd4b0057cf5def:0x7d6ef82264e28430!8m2!3d36.8183374!4d10.304817!9m1!1b1!16s%2Fg%2F11vwldscjf",
+    reviewUrl: LA_GOULETTE_REVIEWS_URL,
   },
   {
     id: "google-review-2",
@@ -320,8 +296,7 @@ export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
     workshopId: "menzah-6",
     universeTag: "Chaussures & Articles Cuir",
     text: "Un service exceptionnel ! Un travail réalisé avec un grand soin et une vraie maîtrise.",
-    reviewUrl:
-      "https://www.google.com/maps/place/Kenenti+Manzah+6/@36.8462588,10.1651438,17z/data=!4m8!3m7!1s0x12fd330046e24d7d:0xe442cff36918290c!8m2!3d36.8462588!4d10.1677187!9m1!1b1!16s%2Fg%2F11m6sngk7n",
+    reviewUrl: MENZAH_REVIEWS_URL,
   },
   {
     id: "google-review-3",
@@ -332,8 +307,7 @@ export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
     workshopId: "la-goulette",
     universeTag: "Sneakers & Baskets",
     text: "Très impressionnée par la prestation ! Les baskets raj3ou on dirait jdod, service client au top.",
-    reviewUrl:
-      "https://www.google.com/maps/place/Kenenti/@36.8183374,10.304817,17z/data=!4m8!3m7!1s0x12fd4b0057cf5def:0x7d6ef82264e28430!8m2!3d36.8183374!4d10.304817!9m1!1b1!16s%2Fg%2F11vwldscjf",
+    reviewUrl: LA_GOULETTE_REVIEWS_URL,
   },
   {
     id: "google-review-4",
@@ -344,8 +318,7 @@ export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
     workshopId: "menzah-6",
     universeTag: "Maroquinerie & Sacs",
     text: "Une équipe très professionnelle et soignée. Mon sac a retrouvé une nouvelle vie, mille mercis !",
-    reviewUrl:
-      "https://www.google.com/maps/place/Kenenti+Manzah+6/@36.8462588,10.1651438,17z/data=!4m8!3m7!1s0x12fd330046e24d7d:0xe442cff36918290c!8m2!3d36.8462588!4d10.1677187!9m1!1b1!16s%2Fg%2F11m6sngk7n",
+    reviewUrl: MENZAH_REVIEWS_URL,
   },
   {
     id: "google-review-5",
@@ -356,8 +329,7 @@ export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
     workshopId: "menzah-6",
     universeTag: "Rénovation Chaussures",
     text: "Mes chaussures ont retrouvé une seconde vie et sont maintenant comme neuves. Un immense merci !",
-    reviewUrl:
-      "https://www.google.com/maps/place/Kenenti+Manzah+6/@36.8462588,10.1651438,17z/data=!4m8!3m7!1s0x12fd330046e24d7d:0xe442cff36918290c!8m2!3d36.8462588!4d10.1677187!9m1!1b1!16s%2Fg%2F11m6sngk7n",
+    reviewUrl: MENZAH_REVIEWS_URL,
   },
   {
     id: "google-review-6",
@@ -368,20 +340,16 @@ export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
     workshopId: "la-goulette",
     universeTag: "Soin & Entretien",
     text: "Très professionnel, très méticuleux, prix abordable.",
-    reviewUrl:
-      "https://www.google.com/maps/place/Kenenti/@36.8183374,10.304817,17z/data=!4m8!3m7!1s0x12fd4b0057cf5def:0x7d6ef82264e28430!8m2!3d36.8183374!4d10.304817!9m1!1b1!16s%2Fg%2F11vwldscjf",
+    reviewUrl: LA_GOULETTE_REVIEWS_URL,
   },
 ];
 
-/**
- * Section 4.6 — FAQ
- */
 export const FAQ_ITEMS = [
   {
     id: "faq-devis",
     question: "Comment demander un devis pour une restauration ou un entretien ?",
     answer:
-      "Chaque pièce (chaussures, sneakers, sac de maroquinerie, vêtement en cuir, mobilier ou intérieur automobile) est examinée individuellement. Vous pouvez nous envoyer des photos via WhatsApp ou déposer votre article dans l'un de nos ateliers à La Goulette ou Menzah 6. Toutes les demandes de devis sont étudiées manuellement par nos artisans avant toute confirmation de faisabilité, de tarif ou de délai.",
+      "Chaque pièce (chaussures, sneakers, sac de maroquinerie, vêtement en cuir, mobilier ou intérieur automobile) est examinée individuellement. Vous pouvez envoyer vos photos depuis la page Services ou déposer votre article dans l'un de nos ateliers à La Goulette ou Menzah 6.",
   },
   {
     id: "faq-univers",
@@ -399,12 +367,12 @@ export const FAQ_ITEMS = [
     id: "faq-ateliers",
     question: "Où se trouvent vos ateliers en Tunisie et comment vous joindre ?",
     answer:
-      "KENENTI dispose de deux ateliers : le premier à La Goulette (Rue des Ecoles, La Goulette 2060 — Tél : +216 29 286 445) et le second à Menzah 6 (Ariana, R5W9+G34 — Tél : +216 28 877 074). Vous pouvez également nous contacter sur WhatsApp au +216 90 747 044.",
+      "KENENTI dispose de deux ateliers : le premier à La Goulette (Rue des Ecoles, La Goulette 2060 — Tél : +216 29 286 445) et le second à Menzah 6 (Ariana, R5W9+G34 — Tél : +216 28 877 074).",
   },
   {
     id: "faq-delais-tarifs",
     question: "Comment sont déterminés le tarif et le délai d'une intervention en atelier ?",
     answer:
-      "Chaque article nécessitant un traitement adapté à sa matière et à son état d'usure, aucun tarif, délai ou enlèvement n'est fixé de manière automatique. Nos artisans réalisent un diagnostic manuel préalable (sur photos via WhatsApp ou lors du dépôt en atelier) afin de vous communiquer une proposition précise.",
+      "Chaque article nécessitant un traitement adapté à sa matière et à son état d'usure, nos artisans réalisent un diagnostic manuel préalable (sur photos ou lors du dépôt en atelier) afin de vous communiquer une proposition précise.",
   },
 ];

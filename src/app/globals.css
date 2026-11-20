@@ -133,6 +133,7 @@ input[type="range"].kenenti-range-slider:focus-visible {
   gap: 1.5rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
   scrollbar-width: none;
   -ms-overflow-style: none;
   touch-action: manipulation;
@@ -264,28 +265,6 @@ input[type="range"].kenenti-range-slider:focus-visible {
 }
 
 /* ==========================================================================
-<<<<<<< HEAD
-    Bande défilante continue ("Ils parlent de nous" - Media Logos Marquee)
-   ========================================================================== */
-@keyframes kenenti-marquee {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-.kenenti-marquee-track {
-  display: flex;
-  width: max-content;
-  animation: kenenti-marquee 28s linear infinite;
-  will-change: transform;
-}
-
-.kenenti-marquee-track:hover,
-.kenenti-marquee-track:active {
-=======
    Avis Google Maps : Barre de progression Mobile (2,5s) & Bande passante Web
    ========================================================================== */
 .animate-kenenti-review-progress {
@@ -311,17 +290,13 @@ input[type="range"].kenenti-range-slider:focus-visible {
 .animate-kenenti-reviews-marquee:hover,
 .animate-kenenti-reviews-marquee:active,
 .animate-kenenti-reviews-marquee:focus-within {
->>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
   animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
-<<<<<<< HEAD
-  .kenenti-marquee-track {
-=======
+  .animate-kenenti-tab-progress,
   .animate-kenenti-review-progress,
   .animate-kenenti-reviews-marquee {
->>>>>>> 618d79988cf4c51ba91292fb955ec3f3f2a99e1b
     animation: none;
   }
 }
